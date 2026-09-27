@@ -1,0 +1,28 @@
+@import '../styles/tokens.css';
+@import '../styles/themes.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: var(--color-bg-app);
+    color: var(--color-text);
+    min-height: 100vh;
+  }
+}
+
+.maplibregl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+}
+
+html.dark .maplibregl-popup-tip {
+  border-top-color: #0f172a !important; /* matches dark card */
+}
+
+html.light .maplibregl-popup-tip {
+  border-top-color: #ffffff !important; /* matches light card */
+}

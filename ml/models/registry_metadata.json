@@ -1,0 +1,17 @@
+{
+    "model_name": "ETA-XGBoost",
+    "version": "v1.0",
+    "metrics": {
+        "mae": 0.30760901864529094,
+        "rmse": 0.566407016610153
+    },
+    "features": [
+        "base_eta_hours",
+        "sea_ice_concentration",
+        "wind_speed_knots",
+        "wave_height_meters",
+        "cargo_load_percent",
+        "actual_speed_knots"
+    ],
+    "training_timestamp": "2026-09-26T23:52:56.009818+00:00"
+}

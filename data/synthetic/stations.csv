@@ -1,0 +1,6 @@
+id,name,type,occupancy,lat,lon
+442155b8-250b-4aa7-971c-25f94bcb34ec,Davis Station,Research,80,-68.57,77.96
+d2f75ac8-1201-4cba-988e-dab9e031f64e,Maitri Station,Research,65,-70.76,11.73
+80f23405-426e-46d3-8d11-436aad9f33ed,Bharati Station,Research,47,-69.4,76.19
+3a0ccdb7-b110-4820-8624-1c2cefc226ce,Cape Town Port,Logistics,500,-33.91,18.42
+e8c4eb68-827e-493d-8621-c58cac7f43fe,Hobart Port,Logistics,400,-42.88,147.32

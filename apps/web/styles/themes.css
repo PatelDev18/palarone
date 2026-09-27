@@ -1,0 +1,164 @@
+/**
+ * POLARONE Theme Utilities & Component Cascades
+ * Provides consistent class mappings and automated Light/Dark mode transitions
+ */
+
+/* Global Smooth Color Transitions */
+*,
+*::before,
+*::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* MapLibre Canvas and Popups should not transition canvas render */
+.maplibregl-canvas,
+.maplibregl-canvas-container,
+.recharts-wrapper * {
+  transition: none !important;
+}
+
+/* Automated Light Mode Theme Overrides for Core Surfaces */
+html.light body,
+html.light .bg-\[\#020617\],
+html.light .bg-\[\#0b1120\],
+html.light .bg-\[\#080d1e\] {
+  background-color: var(--color-bg-app) !important;
+  color: var(--color-text) !important;
+}
+
+html.light .bg-\[\#0f172a\],
+html.light .bg-\[\#0b1329\],
+html.light .bg-slate-900,
+html.light .bg-slate-900\/50,
+html.light .bg-slate-900\/60,
+html.light .bg-slate-900\/70,
+html.light .bg-slate-900\/80,
+html.light .bg-slate-900\/90,
+html.light .bg-slate-850 {
+  background-color: var(--color-bg-card) !important;
+  color: var(--color-text) !important;
+}
+
+html.light .bg-slate-950,
+html.light .bg-slate-950\/60,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/90 {
+  background-color: var(--color-bg-secondary) !important;
+  color: var(--color-text) !important;
+}
+
+html.light .border-slate-800,
+html.light .border-slate-800\/60,
+html.light .border-slate-800\/80,
+html.light .border-slate-700,
+html.light .border-slate-700\/60,
+html.light .border-slate-700\/80 {
+  border-color: var(--color-border) !important;
+}
+
+html.light .text-slate-100,
+html.light .text-slate-200 {
+  color: var(--color-text) !important;
+}
+
+html.light .text-slate-300,
+html.light .text-slate-400 {
+  color: var(--color-text-secondary) !important;
+}
+
+html.light .text-slate-500 {
+  color: var(--color-text-muted) !important;
+}
+
+html.light .divide-slate-800 > :not([hidden]) ~ :not([hidden]),
+html.light .divide-slate-800\/80 > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--color-border) !important;
+}
+
+/* Specific Card & Input Overrides */
+html.light input,
+html.light select,
+html.light textarea {
+  background-color: var(--color-bg-input) !important;
+  border-color: var(--color-border-strong) !important;
+  color: var(--color-text) !important;
+}
+
+html.light input::placeholder,
+html.light textarea::placeholder {
+  color: var(--color-text-disabled) !important;
+}
+
+/* Semantic Badges in Light Mode */
+html.light .bg-emerald-950,
+html.light .bg-emerald-950\/40,
+html.light .bg-emerald-950\/60,
+html.light .bg-emerald-950\/80 {
+  background-color: var(--color-success-bg) !important;
+  border-color: var(--color-success-border) !important;
+  color: var(--color-success-text) !important;
+}
+
+html.light .bg-amber-950,
+html.light .bg-amber-950\/40,
+html.light .bg-amber-950\/60,
+html.light .bg-amber-950\/80 {
+  background-color: var(--color-warning-bg) !important;
+  border-color: var(--color-warning-border) !important;
+  color: var(--color-warning-text) !important;
+}
+
+html.light .bg-red-950,
+html.light .bg-red-950\/40,
+html.light .bg-red-950\/60,
+html.light .bg-red-950\/80,
+html.light .bg-rose-950,
+html.light .bg-rose-950\/40 {
+  background-color: var(--color-danger-bg) !important;
+  border-color: var(--color-danger-border) !important;
+  color: var(--color-danger-text) !important;
+}
+
+html.light .bg-blue-950,
+html.light .bg-blue-950\/40,
+html.light .bg-blue-950\/60,
+html.light .bg-blue-950\/80 {
+  background-color: var(--color-info-bg) !important;
+  border-color: var(--color-info-border) !important;
+  color: var(--color-info-text) !important;
+}
+
+/* Light Mode Nav Header */
+html.light header {
+  background-color: var(--color-bg-nav) !important;
+  border-color: var(--color-border) !important;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+}
+
+html.light header a,
+html.light header span.text-slate-100 {
+  color: var(--color-text) !important;
+}
+
+/* Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 9999px;
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+}

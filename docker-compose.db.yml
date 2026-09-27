@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgis/postgis:15-3.3
+    container_name: polarone-postgis
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: polarone
+    ports:
+      - "5432:5432"
+    volumes:
+      - polarone_db_data:/var/lib/postgresql/data
+    restart: always
+
+  redis:
+    image: redis:7-alpine
+    container_name: polarone-redis
+    ports:
+      - "6379:6379"
+    restart: always
+
+volumes:
+  polarone_db_data:
