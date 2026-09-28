@@ -87,6 +87,21 @@ async def startup_event():
 async def health_check():
     return {"status": "ok", "version": app.version, "db_connected": True}
 
+@app.get("/audit")
+async def root_audit_logs():
+    from app.services.expedition_service import expedition_service
+    return expedition_service.get_audit_logs()
+
+@app.get("/kpis")
+async def root_kpis():
+    from app.services.expedition_service import expedition_service
+    return expedition_service.get_kpis()
+
+@app.get("/all")
+async def root_all_expeditions():
+    from app.services.expedition_service import expedition_service
+    return expedition_service.get_expeditions()
+
 @app.get("/")
 async def root():
     return {"message": "Welcome to POLARONE API"}

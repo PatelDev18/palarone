@@ -38,6 +38,20 @@ def get_expedition_kpis():
     """
     return expedition_service.get_kpis()
 
+@router.get("/audit", response_model=List[Dict[str, Any]])
+def get_global_audit_logs():
+    """
+    Get global immutable audit logs across expeditions.
+    """
+    return expedition_service.get_audit_logs()
+
+@router.get("/all", response_model=List[Dict[str, Any]])
+def get_all_expeditions_alias():
+    """
+    Get all expeditions alias.
+    """
+    return expedition_service.get_expeditions()
+
 @router.post("", status_code=status.HTTP_201_CREATED, response_model=Dict[str, Any])
 def create_expedition(payload: Dict[str, Any] = Body(...)):
     """
