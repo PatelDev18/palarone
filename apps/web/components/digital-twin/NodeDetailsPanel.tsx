@@ -358,7 +358,7 @@ export function NodeDetailsPanel({
                     Feature Weights & Explainability
                   </span>
                   <div className="space-y-2">
-                    {node.risk.contributing_factors.map((factor, idx) => (
+                    {node.risk.contributing_factors?.map((factor, idx) => (
                       <div key={idx} className="p-2 rounded bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-1">
                         <div className="flex items-center justify-between text-[11px]">
                           <span className="text-slate-200 font-medium">{factor.factor}</span>

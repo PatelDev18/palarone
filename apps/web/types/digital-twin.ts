@@ -14,13 +14,14 @@ export interface NodeRisk {
   level: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL';
   score: number; // 0.0 to 1.0
   confidence: number; // 0.0 to 1.0
-  horizon: string;
-  model: string;
-  contributing_factors: Array<{
+  horizon?: string;
+  model?: string;
+  contributing_factors?: Array<{
     factor: string;
     weight: number;
     impact: string;
   }>;
+  [key: string]: any;
 }
 
 export interface DigitalTwinNode {
@@ -40,9 +41,9 @@ export interface DigitalTwinEdge {
   id: string;
   source: string;
   target: string;
-  relation: string;
-  status: 'NORMAL' | 'WARNING' | 'CRITICAL' | 'DELAYED' | 'THREATENED';
-  weight: number;
+  relation?: string;
+  status?: 'NORMAL' | 'WARNING' | 'CRITICAL' | 'DELAYED' | 'THREATENED' | string;
+  weight?: number;
   label?: string;
   animated?: boolean;
   style?: {
@@ -55,19 +56,24 @@ export interface DigitalTwinEdge {
     status: string;
     weight: number;
     full_label?: string;
+    [key: string]: any;
   };
+  [key: string]: any;
 }
+
+export type ImpactSeverity = 'NORMAL' | 'WARNING' | 'CRITICAL' | 'LOW' | 'MEDIUM' | 'HIGH' | string;
 
 export interface CascadeStage {
   step: number;
   node_id: string;
   node_name: string;
   impact_type: string;
-  severity: NodeStatus;
+  severity: ImpactSeverity;
   time_horizon: string; // e.g. NOW, 5 MIN, 30 MIN, 6 HOURS, 24 HOURS, 72 HOURS
   estimated_elapsed_minutes: number;
   description: string;
   confidence: number;
+  [key: string]: any;
 }
 
 export interface CascadingImpact {
@@ -75,10 +81,11 @@ export interface CascadingImpact {
   trigger_node: string;
   trigger_name: string;
   root_cause: string;
-  overall_severity: NodeStatus;
+  overall_severity: ImpactSeverity;
   confidence_score: number;
   stages: CascadeStage[];
   recommended_human_actions: string[];
+  [key: string]: any;
 }
 
 export interface DigitalTwinEvent {
@@ -87,11 +94,12 @@ export interface DigitalTwinEvent {
   time_display: string;
   node_id: string;
   node_name: string;
-  severity: NodeStatus;
+  severity: ImpactSeverity;
   source: string;
   title: string;
   description: string;
   data_freshness: FreshnessState;
+  [key: string]: any;
 }
 
 export interface SatelliteObservation {

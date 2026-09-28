@@ -118,7 +118,7 @@ export const digitalTwinApi = {
       return await res.json();
     } catch (err) {
       console.warn('digitalTwinApi.getImpact failed:', err);
-      return SEED_CASCADES.find(c => c.root_cause_node_id === id) || null;
+      return SEED_CASCADES.find(c => c.trigger_node === id) || null;
     }
   },
 
