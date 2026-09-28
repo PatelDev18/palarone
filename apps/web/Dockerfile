@@ -3,14 +3,14 @@ FROM node:20-alpine AS base
 # Install dependencies only when needed
 FROM base AS deps
 WORKDIR /app
-COPY package.json package-lock.json* ./
+COPY apps/web/package.json apps/web/package-lock.json* ./
 RUN npm install
 
 # Rebuild the source code only when needed
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
-COPY . .
+COPY apps/web/ .
 
 ARG NEXT_PUBLIC_API_URL=https://backend-production-78f6.up.railway.app
 ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
