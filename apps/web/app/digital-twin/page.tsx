@@ -44,7 +44,7 @@ export default function DigitalTwinPage() {
   const [loading, setLoading] = useState(true);
 
   // Selection & Filtering States
-  const [selectedNodeId, setSelectedNodeId] = useState<string | null>(null);
+  const [selectedNodeId, setSelectedNodeId] = useState<string | null>('equipment_gen_2');
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('ALL');
   const [selectedSeverity, setSelectedSeverity] = useState('ALL');
