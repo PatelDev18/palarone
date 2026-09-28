@@ -11,8 +11,9 @@ import {
   SeaIceIntelligence,
   RecommendationItem
 } from '@/types/command-center';
+import { getApiBase } from '@/lib/utils/apiBase';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/command-center';
+const BASE_URL = getApiBase('command-center');
 
 export async function fetchCommandCenterOverview(): Promise<CommandCenterOverview> {
   try {

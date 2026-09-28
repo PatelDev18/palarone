@@ -28,6 +28,9 @@ import { WeatherIntelligenceSection } from '@/components/intelligence/WeatherInt
 import { VesselFusionSection } from '@/components/intelligence/VesselFusionSection'
 import { AIPredictionsSection } from '@/components/intelligence/AIPredictionsSection'
 import { RiskIntelligenceSection } from '@/components/intelligence/RiskIntelligenceSection'
+import { getApiBase } from '@/lib/utils/apiBase'
+
+const INTEL_BASE = getApiBase('intelligence');
 import { ModelRegistrySection } from '@/components/intelligence/ModelRegistrySection'
 import { DataQualitySection } from '@/components/intelligence/DataQualitySection'
 import { IntelligenceAlertsSection } from '@/components/intelligence/IntelligenceAlertsSection'
@@ -77,17 +80,17 @@ export default function IntelligenceCenterPage() {
     const fetchData = async () => {
       try {
         const [overviewRes, scenesRes, iceRes, wxRes, vesselsRes, modelsRes, predsRes, riskRes, alertsRes, dqRes, timeRes] = await Promise.allSettled([
-          fetch('http://localhost:8000/api/v1/intelligence/overview'),
-          fetch('http://localhost:8000/api/v1/intelligence/satellite/acquisitions'),
-          fetch('http://localhost:8000/api/v1/intelligence/ice/status'),
-          fetch('http://localhost:8000/api/v1/intelligence/weather/intelligence'),
-          fetch('http://localhost:8000/api/v1/intelligence/vessels/intelligence'),
-          fetch('http://localhost:8000/api/v1/intelligence/models'),
-          fetch('http://localhost:8000/api/v1/intelligence/predictions'),
-          fetch('http://localhost:8000/api/v1/intelligence/risk/summary'),
-          fetch('http://localhost:8000/api/v1/intelligence/alerts'),
-          fetch('http://localhost:8000/api/v1/intelligence/data-quality'),
-          fetch('http://localhost:8000/api/v1/intelligence/timeline')
+          fetch(`${INTEL_BASE}/overview`),
+          fetch(`${INTEL_BASE}/satellite/acquisitions`),
+          fetch(`${INTEL_BASE}/ice/status`),
+          fetch(`${INTEL_BASE}/weather/intelligence`),
+          fetch(`${INTEL_BASE}/vessels/intelligence`),
+          fetch(`${INTEL_BASE}/models`),
+          fetch(`${INTEL_BASE}/predictions`),
+          fetch(`${INTEL_BASE}/risk/summary`),
+          fetch(`${INTEL_BASE}/alerts`),
+          fetch(`${INTEL_BASE}/data-quality`),
+          fetch(`${INTEL_BASE}/timeline`)
         ]);
 
         if (overviewRes.status === 'fulfilled' && overviewRes.value.ok) {
@@ -159,18 +162,18 @@ export default function IntelligenceCenterPage() {
   // Demo Trigger (Section 38 & 39)
   const triggerDemo = async () => {
     try {
-      const res = await fetch('http://localhost:8000/api/v1/intelligence/demo/trigger', { method: 'POST' });
+      const res = await fetch(`${INTEL_BASE}/demo/trigger`, { method: 'POST' });
       if (res.ok) {
         const result = await res.json();
         setDemoBanner(`DEMO CASCADE ACTIVATED: ${result.message} (Affected Vessel: ${result.affected_vessel}, Recalculated Delay: ${result.projected_delay})`);
         
         // Refresh alerts & vessels
-        const alertsRes = await fetch('http://localhost:8000/api/v1/intelligence/alerts');
+        const alertsRes = await fetch(`${INTEL_BASE}/alerts`);
         if (alertsRes.ok) {
           const aData = await alertsRes.json();
           setAlerts(aData.alerts || []);
         }
-        const vesselsRes = await fetch('http://localhost:8000/api/v1/intelligence/vessels/intelligence');
+        const vesselsRes = await fetch(`${INTEL_BASE}/vessels/intelligence`);
         if (vesselsRes.ok) {
           const vData = await vesselsRes.json();
           setVessels(vData.vessels || []);
@@ -183,7 +186,7 @@ export default function IntelligenceCenterPage() {
 
   const handleHITLAction = async (action: 'ACKNOWLEDGE' | 'REVIEW' | 'DISMISS' | 'ESCALATE', alertId: string, notes?: string) => {
     try {
-      await fetch('http://localhost:8000/api/v1/intelligence/hitl/action', {
+      await fetch(`${INTEL_BASE}/hitl/action`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -202,7 +205,8 @@ export default function IntelligenceCenterPage() {
     }
   };
 
-  const criticalAlertsCount = alerts.filter(a => a.severity === 'CRITICAL' && a.status === 'ACTIVE').length;
+  const safeAlerts = Array.isArray(alerts) ? alerts : [];
+  const criticalAlertsCount = safeAlerts.filter(a => a.severity === 'CRITICAL' && a.status === 'ACTIVE').length;
 
   return (
     <div className="flex flex-col min-h-screen bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-slate-200 transition-colors duration-150">

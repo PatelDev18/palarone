@@ -21,7 +21,9 @@ export function AuditLogViewer({ auditLogs }: AuditLogViewerProps) {
   const [search, setSearch] = useState('');
   const [selectedIncident, setSelectedIncident] = useState('ALL');
 
-  const filteredLogs = auditLogs.filter(log => {
+  const safeLogs = Array.isArray(auditLogs) ? auditLogs : [];
+
+  const filteredLogs = safeLogs.filter(log => {
     const matchesSearch = 
       log.user_name.toLowerCase().includes(search.toLowerCase()) ||
       log.action.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,7 +34,7 @@ export function AuditLogViewer({ auditLogs }: AuditLogViewerProps) {
     return matchesSearch && matchesInc;
   });
 
-  const uniqueIncidents = Array.from(new Set(auditLogs.map(l => l.incident_id)));
+  const uniqueIncidents = Array.from(new Set(safeLogs.map(l => l.incident_id)));
 
   return (
     <div className="bg-[#0b1329] border border-slate-200 dark:border-slate-800 rounded-xl p-5 shadow-xl space-y-4 font-mono">

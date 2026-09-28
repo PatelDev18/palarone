@@ -15,14 +15,9 @@ import {
   SEED_SATELLITE,
   SEED_EVENTS
 } from '@/lib/data/digitalTwinSeed';
+import { getApiBase } from '@/lib/utils/apiBase';
 
-const resolveApiBase = () => {
-  const envUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-  const clean = envUrl.replace(/\/+$/, '');
-  return clean.includes('/api/v1') ? clean : `${clean}/api/v1`;
-};
-
-const API_BASE = resolveApiBase();
+const API_BASE = getApiBase();
 
 // High-fidelity fallback overview
 const FALLBACK_OVERVIEW: DigitalTwinOverview = {

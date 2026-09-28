@@ -68,7 +68,8 @@ export function CommandHeader({
     return () => clearInterval(interval);
   }, [timeHorizon]);
 
-  const unreadAlerts = alerts.filter(a => a.status === 'NEW' || a.status === 'ACKNOWLEDGED');
+  const safeAlerts = Array.isArray(alerts) ? alerts : [];
+  const unreadAlerts = safeAlerts.filter(a => a.status === 'NEW' || a.status === 'ACKNOWLEDGED');
 
   return (
     <header className="h-14 bg-white dark:bg-[#020617] border-b border-slate-200 dark:border-slate-800 flex items-center justify-between px-4 sm:px-6 shrink-0 z-40 relative select-none transition-colors duration-150">

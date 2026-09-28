@@ -16,8 +16,9 @@ import {
   AuditLogEntry,
   MLModelItem
 } from '@/types/logistics';
+import { getApiBase } from '@/lib/utils/apiBase';
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/logistics';
+const API_BASE = getApiBase('logistics');
 
 // Fallback synthetic dataset ensuring high-fidelity demo & offline-first behavior
 const FALLBACK_KPIS: KPIs = {

@@ -99,15 +99,18 @@ export function BottomDock({
     }
   };
 
+  const safeEvents = Array.isArray(events) ? events : [];
+  const safeAlerts = Array.isArray(alerts) ? alerts : [];
+
   const filteredEvents =
     eventCategoryFilter === 'ALL'
-      ? events
-      : events.filter((e) => e.category === eventCategoryFilter);
+      ? safeEvents
+      : safeEvents.filter((e) => e.category === eventCategoryFilter);
 
   const filteredAlerts =
     alertSeverityFilter === 'ALL'
-      ? alerts
-      : alerts.filter((a) => a.severity === alertSeverityFilter);
+      ? safeAlerts
+      : safeAlerts.filter((a) => a.severity === alertSeverityFilter);
 
   return (
     <div
@@ -161,7 +164,7 @@ export function BottomDock({
           >
             <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />
             Alert Center
-            {alerts.filter((a) => a.status === 'NEW').length > 0 && (
+            {safeAlerts.filter((a) => a.status === 'NEW').length > 0 && (
               <span className="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
             )}
           </button>

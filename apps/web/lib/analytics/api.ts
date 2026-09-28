@@ -20,8 +20,9 @@ import {
   AIInsight,
   Timeframe,
 } from '@/types/analytics'
+import { getApiBase } from '@/lib/utils/apiBase'
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1'
+const API_BASE = getApiBase()
 
 export async function fetchAnalyticsBundle(timeframe: Timeframe = '7D'): Promise<AnalyticsBundle> {
   try {

@@ -35,8 +35,9 @@ import {
   Ship,
   X
 } from 'lucide-react'
+import { getApiBase } from '@/lib/utils/apiBase'
 
-const API_BASE = 'http://127.0.0.1:8000/api/v1/incidents';
+const API_BASE = getApiBase('incidents');
 
 export default function EmergencyResponseCenterPage() {
   // Navigation & Sub-navigation State
@@ -106,21 +107,21 @@ export default function EmergencyResponseCenterPage() {
       const assetRes = await fetch(`${API_BASE}/assets`).catch(() => null);
       if (assetRes && assetRes.ok) {
         const assetData = await assetRes.json();
-        setResponseAssets(assetData);
+        if (Array.isArray(assetData)) setResponseAssets(assetData);
       }
 
       // 4. Fetch Protocols
       const protoRes = await fetch(`${API_BASE}/protocols`).catch(() => null);
       if (protoRes && protoRes.ok) {
         const protoData = await protoRes.json();
-        setProtocols(protoData);
+        if (Array.isArray(protoData)) setProtocols(protoData);
       }
 
       // 5. Fetch Audit Logs
       const auditRes = await fetch(`${API_BASE}/audit`).catch(() => null);
       if (auditRes && auditRes.ok) {
         const auditData = await auditRes.json();
-        setAuditLogs(auditData);
+        if (Array.isArray(auditData)) setAuditLogs(auditData);
       }
     } catch (err) {
       console.error("Failed to fetch response center data:", err);

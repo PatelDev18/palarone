@@ -68,9 +68,9 @@ export default function ExpeditionsDashboard() {
         getExpeditionKPIs(),
         getAuditLogs()
       ]);
-      setExpeditions(expList);
-      setKpis(kpiData);
-      setAuditLogs(logs);
+      setExpeditions(Array.isArray(expList) ? expList : []);
+      if (kpiData) setKpis(kpiData);
+      setAuditLogs(Array.isArray(logs) ? logs : []);
     } catch (err) {
       console.error('Error loading expeditions:', err);
     } finally {
@@ -105,7 +105,8 @@ export default function ExpeditionsDashboard() {
   };
 
   // Filter application
-  const filteredExpeditions = expeditions.filter(exp => {
+  const safeExpeditions = Array.isArray(expeditions) ? expeditions : [];
+  const filteredExpeditions = safeExpeditions.filter(exp => {
     if (filters.search) {
       const q = filters.search.toLowerCase();
       const match =

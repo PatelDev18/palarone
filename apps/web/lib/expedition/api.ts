@@ -8,8 +8,9 @@ import {
   ExpeditionIncident,
   ExpeditionRecommendation
 } from '@/types/expedition';
+import { getApiBase } from '@/lib/utils/apiBase';
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000/api/v1/expeditions';
+const BASE_URL = getApiBase('expeditions');
 
 // Embedded fallback seed data in case backend server is disconnected/cold starting
 export const FALLBACK_EXPEDITIONS: Expedition[] = [
@@ -1147,8 +1148,10 @@ export async function getExpeditions(params?: {
     const res = await fetch(url.toString(), { cache: 'no-store' });
     if (res.ok) {
       const data = await res.json();
-      clientExpeditionsCache = data;
-      return data;
+      if (Array.isArray(data)) {
+        clientExpeditionsCache = data;
+        return data;
+      }
     }
   } catch (err) {
     console.warn('Backend API unreachable, using local mission cache:', err);
@@ -1565,7 +1568,11 @@ export async function getAuditLogs(expeditionId?: string): Promise<AuditLogEntry
   try {
     const url = expeditionId ? `${BASE_URL}/${expeditionId}/audit` : `${BASE_URL}/audit`;
     const res = await fetch(url, { cache: 'no-store' });
-    if (res.ok) return await res.json();
+    if (res.ok) {
+      const data = await res.json();
+      if (Array.isArray(data)) return data;
+      if (data && Array.isArray(data.audit_logs)) return data.audit_logs;
+    }
   } catch (err) {
     // fallback
   }
